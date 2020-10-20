@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+
+#hero{
+    background-color: aqua;
+    width: 100vw;
+    height: 30vh;
+    background-image:url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg" ) ;
+    background-size:cover ;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction:column ;
+    
+}
+h1{
+    display: block;
+}
