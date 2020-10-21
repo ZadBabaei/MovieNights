@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=comfortaa);
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Parisienne&display=swap');@import url(https://fonts.googleapis.com/css?family=comfortaa);
 
 * {
     margin: 0;
@@ -16,13 +16,30 @@
     background-image: url("MovieNights4.jpg");
     background-size:cover ;
     display: flex;
-    align-items: center;
+    align-items: left
+    ;
     justify-content:center;
     flex-direction:column ;
     
 }
-h1{font-family:'Times New Roman', Times, serif ;
+/* h1{font-family:'Times New Roman', Times, serif ;
     display: block;
+} */
+h1{
+    text-shadow: #09476b 2px 2px;
+    color: rgba(86, 141, 158,.9);
+    font-family: 'Pacifico', cursive;
+    font-family: 'Parisienne', cursive;
+
+}
+#test-Txt-l1{  
+    margin-left: 45%;
+}
+#test-Txt-l2{
+    margin-left: 48%;
+}
+#test-Txt-l3{   
+    margin-left: 40%;
 }
 
 #search{
