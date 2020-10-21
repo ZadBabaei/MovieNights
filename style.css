@@ -1,14 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=comfortaa);
+
 * {
     margin: 0;
     padding: 0;
+    outline: none;
+    
   }
 
 
 #hero{
     background-color: aqua;
     width: 100vw;
-    height: 30vh;
-    background-image:url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg" ) ;
+    height: 48vh;
+    /* background-image:url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg" ) ;  */
+    background-image: url("MovieNights4.jpg");
     background-size:cover ;
     display: flex;
     align-items: center;
@@ -16,6 +21,54 @@
     flex-direction:column ;
     
 }
-h1{
+h1{font-family:'Times New Roman', Times, serif ;
     display: block;
+}
+
+#search{
+  padding-top: 10px;
+  /* margin-left: 45%; */
+  box-sizing: border-box;
+  font-family: "comfortaa",cursive;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+#searchTerm{
+  width: 50%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+
+}
+#searchTerm:focus{
+    color: #00B4CC;
+
+}
+#searchButton{
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+.container search{
+    margin: 15px;
+    padding: 15px;
+  background: rgba(0, 0, 0, .6);
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
