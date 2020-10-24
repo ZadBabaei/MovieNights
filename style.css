@@ -103,8 +103,9 @@ img{
     border:3px solid #09476b ;
     margin: 10px;
     box-shadow:-10px 10px 35px #09476b;
+    transition: transform .2s;
 }
-.thumbnail:active {
+/* .thumbnail:active {
     position:relative;
     top:25px;
     left:35px;
@@ -112,6 +113,12 @@ img{
     height:auto;
     display:block;
     z-index:999;
+    
+} */
+.thumbnail:active{
+    -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
 }
 
 .container-users{
