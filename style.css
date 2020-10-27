@@ -55,6 +55,7 @@ h1{
   display: flex;
   justify-content:center;
   align-items: center;
+  margin-bottom: 20px;
 }
 #searchTerm{
   width: 50%;
@@ -98,23 +99,14 @@ h1{
    width: 50%;
    grid-template-columns: 1fr 1fr 1fr;
    grid-template-rows: 1fr 1fr ;
+   grid-gap: 50px;
 }
 img{
     border:3px solid #09476b ;
-    margin: 10px;
     box-shadow:-10px 10px 35px #09476b;
     transition: transform .2s;
 }
-/* .thumbnail:active {
-    position:relative;
-    top:25px;
-    left:35px;
-    width:220px;
-    height:auto;
-    display:block;
-    z-index:999;
-    
-} */
+
 .thumbnail:active{
     -ms-transform: scale(1.5); /* IE 9 */
   -webkit-transform: scale(1.5); /* Safari 3-8 */
@@ -130,18 +122,57 @@ img{
     margin: 10px auto;
     width: 50%;
     font-size: 10px;
+     margin-top: 30px;
     
 }
 .container-buttons{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
     margin: 0 auto;
-    width: 75%;
+    width: 20%;
     justify-content: center;
     align-items: center;
 
 }
 
-.myButton {
+.finish-button  {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 24px;
+    border: 1px solid #f04e0e;
+    border-radius: 8px;
+    background: #e64809;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e43516), to(#f04e0e));
+    background: -moz-linear-gradient(top, #d83b0b, #f04e0e);
+    background: linear-gradient(to bottom, #aa4f2b, #f04e0e);
+    -webkit-box-shadow: #e2391b 0px 0px 40px 0px;
+    -moz-box-shadow: #2ea3b0 0px 0px 40px 0px;
+    box-shadow: #ff711f 0px 0px 5px 0px;
+    text-shadow: #0c2b2e 1px 1px 1px;
+    font: normal normal bold 15px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.finish-button:focus ,
+.finish-button:hover {
+    border: 1px solid #e4190a;
+    background: #fc0101;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f05348), to(#e4190a));
+    background: -moz-linear-gradient(top, #f05348,#e4190a);
+    background: linear-gradient(to bottom,#f05348, #e4190a);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.finish-button:active {
+    background: #14484e;
+    background: -webkit-gradient(linear, left top, left bottom, from(#14484e), to(#14484e));
+    background: -moz-linear-gradient(top, #14484e, #14484e);
+    background: linear-gradient(to bottom, #14484e, #14484e);
+}
+.vote-button {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -160,8 +191,8 @@ img{
     color: #ffffff;
     text-decoration: none;
 }
-.myButton:hover,
-.myButton:focus {
+.vote-button:hover , 
+.vote-button:focus{
     border: 1px solid #18555c;
     background: #2ea3b0;
     background: -webkit-gradient(linear, left top, left bottom, from(#2ea3b0), to(#18565e));
@@ -169,8 +200,9 @@ img{
     background: linear-gradient(to bottom, #2ea3b0, #18565e);
     color: #ffffff;
     text-decoration: none;
+
 }
-.myButton:active {
+.vote-button:active{
     background: #14484e;
     background: -webkit-gradient(linear, left top, left bottom, from(#14484e), to(#14484e));
     background: -moz-linear-gradient(top, #14484e, #14484e);
