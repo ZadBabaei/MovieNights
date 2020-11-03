@@ -7,7 +7,7 @@
     
   }
   body{
-      background-color: rgb(14, 36, 61);
+      background-color: rgb(1, 9, 17);
   }
 
 
@@ -97,17 +97,26 @@ h1{
    display: grid;
    margin: 0 auto;
    width: 50%;
-   grid-template-columns: 1fr 1fr 1fr;
-   grid-template-rows: 1fr 1fr ;
-   grid-gap: 50px;
+   /* grid-template-columns: 1fr 1fr 1fr;
+   grid-template-rows: 1fr 1fr ; */
+   /* justify-content: center; */
+   justify-items: center;
+   align-items: center;
+   /* align-content: left; */
+   grid-gap: 10px;
+   grid-template-areas:
+    "Movie-01 Movei-02 Movei-03"
+    "Movie-04 Movei-05 Movei-06";
 }
 img{
+    padding: 10px;
     border:3px solid #09476b ;
-    box-shadow:-10px 10px 35px #09476b;
+    /* box-shadow:-10px 10px 35px #09476b; */
     transition: transform .2s;
+   
 }
 
-.thumbnail:active{
+img:active{
     -ms-transform: scale(1.5); /* IE 9 */
   -webkit-transform: scale(1.5); /* Safari 3-8 */
   transform: scale(1.5); 
