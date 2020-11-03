@@ -1,13 +1,21 @@
 function onLoad(){
+  let users=[]
   let voteButton=document.getElementById("vote");
   function onVoteButtonCliked (){
-    let user=prompt("please enter your name")
+    let user=prompt("please enter your name ? ")
+    users.push(user)
+    
+
+    
+  
+
+    console.log(users)
   }
+  voteButton.addEventListener("click",onVoteButtonCliked)
   function onClickedSerchedItem(){
     let changeImg=document.getElementsByClassName("thumbnail-01").src="Imges/01.jpg";
 
   }
-  voteButton.addEventListener("click",onVoteButtonCliked)
   let movieList=[
     "chernobyl",
     "the boys",
@@ -33,7 +41,7 @@ function onLoad(){
   $( "#searchTerm" ).autocomplete({
     source: movieList
   });
-  $( ".selector" ).on( "autocompletefocus", onClickedSerchedItem( ) );
+  
 
 
 }
