@@ -103,13 +103,14 @@ h1{
    justify-items: center;
    align-items: center;
    /* align-content: left; */
-   grid-gap: 10px;
+   /* grid-gap: 15px; */
    grid-template-areas:
     "Movie-01 Movei-02 Movei-03"
     "Movie-04 Movei-05 Movei-06";
+    grid-gap: 10px 20px;
 }
 img{
-    padding: 10px;
+    width: 100%;
     border:3px solid #09476b ;
     /* box-shadow:-10px 10px 35px #09476b; */
     transition: transform .2s;
@@ -219,6 +220,11 @@ img:active{
 }
 h3{
     margin: 10px;
+}
+#soodi{
+    width: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    color: azure;
 }
 
         

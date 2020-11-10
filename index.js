@@ -4,12 +4,14 @@ function onLoad(){
   function onVoteButtonCliked (){
     let user=prompt("please enter your name ? ")
     users.push(user)
-    
+    let theDiv="<div id=\"user-01\"><h3>"+user+"</h3></div>"
+  
+   document.getElementById("container-users").innerHTML=document.getElementById("container-users").innerHTML+theDiv
 
     
   
 
-    console.log(users)
+    
   }
   voteButton.addEventListener("click",onVoteButtonCliked)
   function onClickedSerchedItem(){
@@ -39,10 +41,21 @@ function onLoad(){
 
   ]
   $( "#searchTerm" ).autocomplete({
-    source: movieList
+    source: movieList,
+    select: function( event, ui ) {
+      var selected = ui.item.value;
+      selectedSerchBox(selected); 
+    }
   });
   
 
 
 }
+
+var whichSquare = 1;
+function selectedSerchBox(x) {
+  $(".container-movies").append("<img class='thumbnail-01' src='Imges/"+x+".jpg' >");
+  whichSquare++;
+}
+
 window.onload=onLoad;
