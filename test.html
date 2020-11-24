@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+</head>
+<body>
+  <script>
+    console.log("fuck")
+    let list=[{lable:"chernobyl",value:"01"},
+    "the boys",
+    "good omens",
+    "carnival row",
+    "the dark knight",
+    "lord of the ring-the return of the kig",
+    "forrest gump",
+    "the star wars sage continues",
+    "seven",
+    "life is beautiful",
+    "the silence of the lambs",
+    "saving private ryan",
+    "green mile",
+    "leon the profetional",
+    "interstellar",
+    "the pianist",
+    "gladiator",
+    "joker",
+]
+console.log(list.length)
+list.map(function(value,lable){
+  // console.log(value+" "+lable)
+})
+let selectedMOvies=list.filter(function(value,index){
+  if (index<10){
+    return true
+  }
+  
+
+}).find(function(value){
+  if (value=="chernobyl"){
+    return true
+  }
+})
+
+console.log(selectedMOvies)
+console.log(list.length)
+
+  </script>
+</body>
+</html>
