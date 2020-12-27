@@ -17,7 +17,7 @@ body {
   /* background-image:url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg" ) ;  */
   background-image: url("MovieNights4.jpg");
   background-size: cover;
-  display: flex;`
+  display: flex;
   align-items: left;
   justify-content: center;
   flex-direction: column;
@@ -26,15 +26,12 @@ body {
     display: block;
 } */
 h1 {
- 
   text-align: center
+}
+h2{
+  border:0px;
+}
 
-}
-#theWinner{
-  border:none;
-  color: rgba(255, 255, 255, 0.9);
-  font-family: 'Times New Roman', Times, serif, cursive;
-}
 #test-Txt-l1 {
   text-shadow: #09476b 2px 2px;
   color: rgba(86, 141, 158, 0.9);
@@ -341,15 +338,18 @@ img:active {
 h3 {
   margin: 10px;
 }
+#theWinnerText{
+  border:none;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Times New Roman', Times, serif, cursive;
+}
 #theWinner {
   /* display: block; */
   text-align: center;
-  margin-block-start: 100px;
+  margin-block-start: 10px;
   /* margin-left: 300px; */
-  width: 200%;
-  height:200%;
-
+  width: 25vw;
   border: 3px solid #09476b;
-  /* box-shadow:-10px 10px 35px #09476b; */
+  box-shadow:-10px 10px 35px #09476b;
 
 }
