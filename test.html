@@ -6,45 +6,20 @@
   <title>test</title>
 </head>
 <body>
+  <p id="thiTag"></p>
   <script>
-    console.log("fuck")
-    let list=[{lable:"chernobyl",value:"01"},
-    "the boys",
-    "good omens",
-    "carnival row",
-    "the dark knight",
-    "lord of the ring-the return of the kig",
-    "forrest gump",
-    "the star wars sage continues",
-    "seven",
-    "life is beautiful",
-    "the silence of the lambs",
-    "saving private ryan",
-    "green mile",
-    "leon the profetional",
-    "interstellar",
-    "the pianist",
-    "gladiator",
-    "joker",
-]
-console.log(list.length)
-list.map(function(value,lable){
-  // console.log(value+" "+lable)
-})
-let selectedMOvies=list.filter(function(value,index){
-  if (index<10){
-    return true
-  }
-  
+    // let currentName = e.target.nextSibling.innerHTML;
+    //     let spacer = currentName.length > 0 ? ", " : "";
+    //     e.target.nextSibling.innerHTML =
+    //       currentName + spacer + users[usersIndex];
+let myList=["why","this","is","not","working"]
+// console.log(document.getElementById("thiTag").innerHTML="reza")
 
-}).find(function(value){
-  if (value=="chernobyl"){
-    return true
-  }
-})
-
-console.log(selectedMOvies)
-console.log(list.length)
+for(i=0;i<myList.length;i++){
+  let currentName=document.getElementById("thiTag").innerHTML
+  document.getElementById("thiTag").innerHTML= currentName +" "+myList[i]
+  console.log(myList[i])
+}
 
   </script>
 </body>
