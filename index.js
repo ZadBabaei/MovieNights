@@ -3,7 +3,6 @@ function onLoad() {
   let state = "selection";
   let counter_vote = 0;
 
-  console.log(state); // cheking the starting sate
   /*
   start---> selection------>voting----->result 
   */
@@ -48,7 +47,6 @@ function onLoad() {
       selectedSerchBox(selected);
       selectedMovieList.push(selected);
       $("#searchTerm").autocomplete("search", "");
-      console.log(state); // to check if we are changeing the state
     },
   });
 
@@ -64,17 +62,16 @@ function onLoad() {
     users.push(user);
     votes.push([]);
     state = "voting";
-    // console.log(state); // cheking if the state is changing
     let theDiv = '<div id="user-01"><h2>' + user + "</h2></div>";
-    document.getElementById("container-users").innerHTML =
-      document.getElementById("container-users").innerHTML ;
+    document.getElementById(
+      "container-users"
+    ).innerHTML = document.getElementById("container-users").innerHTML;
     for (let index = 0; index < movieIndex; index++) {
       document
         .getElementById("thumbnail" + index)
         .addEventListener("click", onClickedImage);
     }
   }
-  // console.log(users);
 
   voteButton.addEventListener("click", onVoteButtonCliked);
   let usersIndex = 0;
@@ -90,10 +87,7 @@ function onLoad() {
         return;
       } else {
         userName = users[usersIndex];
-        // console.log(clickedToVote);
         votes[usersIndex].push(clickedToVote);
-        // console.log("this is inside the voted list" + votes[usersIndex]);
-        // console.log(e.target.nextSibling.getAttribute("id"));
 
         /*  
         using the next sibiling to add the name under the images
@@ -138,7 +132,6 @@ function onLoad() {
     users.push(user);
     votes.push([]);
     state = "voting";
-    // console.log(state); // cheking if the state is changing
     usersIndex++;
     // let theDiv = '<div id="user-01"><h2>' + user + "</h2></div>";
     // document.getElementById("container-users").innerHTML =
@@ -163,27 +156,17 @@ function onLoad() {
       }
     }
 
-    // console.log("this will print my list:  " + myList);
-    // console.log("this will print movie ides:  " + movieIds);
-    // console.log(
-    //   "this will prit the nymber of accurance in the list :  " + numberOfClicked
-    // );
-
-    // console.log(Math.max.apply(null, numberOfClicked));
     let theMostAccured = Math.max.apply(null, numberOfClicked);
-    // console.log(movieIds[numberOfClicked.indexOf(theMostAccured)]);
-    return movieIds[numberOfClicked.indexOf(theMostAccured)]
+    return movieIds[numberOfClicked.indexOf(theMostAccured)];
   }
 
   let finishButton = document.getElementById("finish");
   // this function will find the winner movie and print that movie on the screen
   function onFinishButtonClicked() {
-    console.log("finish button cliked");
     let myNode = document.getElementById("movieHolder");
-    myNode.innerHTML = " ";  // to remove all the elements of the movie-container 
+    myNode.innerHTML = " "; // to remove all the elements of the movie-container
     let flattenedVotes = votes.flat();
-    console.log("this is the flattened list", flattenedVotes);
-    let winner_movie =findTheMostaccuranced(flattenedVotes);
+    let winner_movie = findTheMostaccuranced(flattenedVotes);
     $(".container-movies").append(
       "<div><h2 id='theWinner'>The winner is </h2><img class='thumbnail-01' id='theWinner' src='Imges/" +
         winner_movie +
@@ -194,22 +177,19 @@ function onLoad() {
         "'></p>"
     );
 
-    let winner_user=[] 
-    for (i=0;i<votes.length;i++){
-      if(votes[i].includes(winner_movie)){
-        winner_user.push(users[i])
+    let winner_user = [];
+    for (i = 0; i < votes.length; i++) {
+      if (votes[i].includes(winner_movie)) {
+        winner_user.push(users[i]);
       }
-
     }
-    console.log("this is the users who vote for the wiiner movie"+winner_user)
-    
-        for (i=0;i<winner_user.length;i++){
-          let currentName = document.getElementById(winner_movie).innerHTML;
-          let spacer = currentName.length > 0 ? ", " : "";
-          document.getElementById(winner_movie).innerHTML=
-           currentName + spacer + winner_user[i];
-        }
-       
+   
+    for (i = 0; i < winner_user.length; i++) {
+      let currentName = document.getElementById(winner_movie).innerHTML;
+      let spacer = currentName.length > 0 ? ", " : "";
+      document.getElementById(winner_movie).innerHTML =
+        currentName + spacer + winner_user[i];
+    }
   }
 
   finishButton.addEventListener("click", onFinishButtonClicked);
