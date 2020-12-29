@@ -168,7 +168,7 @@ function onLoad() {
     let flattenedVotes = votes.flat();
     let winner_movie = findTheMostaccuranced(flattenedVotes);
     $(".container-movies").append(
-      "<div><h2 id='theWinnerText'>You got yourselves a movie to whatch </h2><img class='thumbnail-01' id='theWinner' src='Imges/" +
+      "<div><h2 id='theWinnerText'>the winner is: </h2><img class='thumbnail-01' id='theWinner' src='Imges/" +
         winner_movie +
         ".jpg' --data-movieId='" +
         winner_movie +

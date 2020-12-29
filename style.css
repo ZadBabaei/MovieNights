@@ -122,6 +122,7 @@ h2{
 img {
   display: block;
   text-align: center;
+  margin: 10px;
   width: 100%;
   border: 3px solid #09476b;
   /* box-shadow:-10px 10px 35px #09476b; */
@@ -340,6 +341,7 @@ h3 {
 }
 #theWinnerText{
   border:none;
+  margin: 20px;
   color: rgba(255, 255, 255, 0.9);
   font-family: 'Times New Roman', Times, serif, cursive;
 }
