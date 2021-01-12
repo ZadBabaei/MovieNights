@@ -5,66 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TETS-API</title>
   </head>
-  <body>
+  <body id="testImage">
     <h1>this is how you do it with XML Http request</h1>
-    <section id="control_center">
-      <button id="get_btn">GET DATA</button>
-      <button id="post_btn">POST DATA</button>
-    </section>
+    <img src="https://image.tmdb.org/t/p/original/k68nPLbIST6NP96JmTxmZijEvCA.jpg" alt="" >
+    
     <script>
-      const getBtn = document.getElementById("get_btn");
-      const postBtn = document.getElementById("post_btn");
+      // document.getElementById("testImage").innerHTML= "<img  src='https://image.tmdb.org/t/p/original/k68nPLbIST6NP96JmTxmZijEvCA.jpg'></img>"
 
-      const sendHttpRequest = (method, url, data) => {
-        const promise = new Promise((resolve, reject) => {
-          const test = new XMLHttpRequest();
-          test.open(method, url);
-
-          test.responseType = "json";
-          if (data) {
-            test.setRequestHeader("content-Type", "application/json");
-          }
-
-          test.onload = () => {
-            if (test.status >= 400) {
-              reject(test.response);
-            } else {
-              resolve(test.response);
-            }
-          };
-
-          test.onerror = () => {
-            reject("Somthing wnent wrong!");
-          };
-
-          test.send(JSON.stringify(data));
-        });
-        return promise;
-      };
-
-      const getData = () => {
-        sendHttpRequest("GET", "https://reqres.in/api/users").then(
-          (responseData) => {
-            console.log(responseData);
-          }
-        );
-      };
-
-      const sendData = () => {
-        sendHttpRequest("POST", "https://reqres.in/api/register", {
-          email: "eve.holt@reqres.in",
-          // password:"pistol"
-        })
-          .then((responseData) => {
-            console.log(responseData);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-
-      getBtn.addEventListener("click", getData);
-      postBtn.addEventListener("click", sendData);
     </script>
   </body>
 </html>
