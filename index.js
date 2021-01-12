@@ -6,37 +6,70 @@ function onLoad() {
   /*
   start---> selection------>voting----->result 
   */
-  let movieList2 = [
-    { label: "chernobyl(2019)", value: "01" },
-    { label: "the boys", value: "02" },
-    { label: "good omens", value: "03" },
-    { label: "carnival row", value: "04" },
-    { label: "the dark knight", value: "05" },
-    { label: "lord of the ring-the return of the king", value: "07" },
-    { label: "forrest gump", value: "08" },
-    { label: "the star wars sage continues", value: "09" },
-    { label: "seven", value: "10" },
-    { label: "life is beautiful", value: "11" },
-    { label: "the silence of the lamb", value: "12" },
-    { label: "saving private Ryan", value: "13" },
-    { label: "green mile", value: "14" },
-    { label: "leon the profetional", value: "15" },
-    { label: "interstalar", value: "16" },
-    { label: "the pianist", value: "17" },
-    { label: "gladiator", value: "18" },
-    { label: "joker", value: "19" },
-  ];
+
+  function source(req, callback) {
+    const apiKey = "10b0cac006c85b52e64463b5977f8b8c";
+    const baseUrl = "https://api.themoviedb.org/3/search/movie";
+    let TmdbResponse = 0;
+    axios
+        .get(
+          baseUrl +
+            "?api_key=" +
+            apiKey +
+            "&language=en-US&page=1&query= "+req.term + "&include_adult=false"
+        )
+        .then((response) => {
+          TmdbResponse = response.data.results;
+          console.log(TmdbResponse);
+
+          let result = TmdbResponse.map((item) => {
+            const newobj = {
+              label: item.original_title + " " + item.release_date,
+              value: item.id,
+            };
+            return newobj;
+          });
+          console.log("in result", result);
+          callback(result);
+        });
+
+    console.log(req.term);
+    // make api call with req.term
+    // put responses in an array of objects
+    // each object should have a label (movie's name + year + director) and value (movie id)
+
+    // callback([
+    //   { label: "chernobyl (2019) felani", value: "1293812093" },
+    //   { label: "the boys", value: "02" },
+    //   { label: "good omens", value: "03" },
+    //   { label: "carnival row", value: "04" },
+    //   { label: "the dark knight", value: "05" },
+    //   { label: "lord of the ring-the return of the king", value: "07" },
+    //   { label: "forrest gump", value: "08" },
+    //   { label: "the star wars sage continues", value: "09" },
+    //   { label: "seven", value: "10" },
+    //   { label: "life is beautiful", value: "11" },
+    //   { label: "the silence of the lamb", value: "12" },
+    //   { label: "saving private Ryan", value: "13" },
+    //   { label: "green mile", value: "14" },
+    //   { label: "leon the profetional", value: "15" },
+    //   { label: "interstalar", value: "16" },
+    //   { label: "the pianist", value: "17" },
+    //   { label: "gladiator", value: "18" },
+    //   { label: "joker", value: "19" },
+    // ]);
+  }
 
   $("#searchTerm").autocomplete({
-    source: movieList2,
+    source: source,
   });
 
   let selectedMovieList = [];
 
   $("#searchTerm").autocomplete({
     select: function (event, ui) {
-      let selected = ui.item.value;
-      if (selectedMovieList.includes(selected)) {
+      let selectedMovieId = ui.item.value;
+      if (selectedMovieList.includes(selectedMovieId)) {
         alert(" The movie is already selected");
         return;
       }
@@ -44,8 +77,8 @@ function onLoad() {
         alert("you have reached your limit");
         return;
       }
-      selectedSerchBox(selected);
-      selectedMovieList.push(selected);
+      selectedSerchBox(selectedMovieId);
+      selectedMovieList.push(selectedMovieId);
       $("#searchTerm").autocomplete("search", "");
     },
   });
@@ -108,6 +141,7 @@ function onLoad() {
   let movieIndex = 0;
   function selectedSerchBox(movieId) {
     if (state == "selection") {
+      let posterPath = "?";
       $(".container-movies").append(
         "<div><img class='thumbnail-01' id='thumbnail" +
           movieIndex +
@@ -183,7 +217,7 @@ function onLoad() {
         winner_user.push(users[i]);
       }
     }
-   
+
     for (i = 0; i < winner_user.length; i++) {
       let currentName = document.getElementById(winner_movie).innerHTML;
       let spacer = currentName.length > 0 ? ", " : "";
