@@ -2,6 +2,7 @@ function onLoad() {
   let userName = "";
   let state = "selection";
   let counter_vote = 0;
+  let movieIndex = 0;
 
   /*
   start---> selection------>voting----->result 
@@ -39,14 +40,14 @@ function onLoad() {
   }
 
   let selectedMovieList = [];
-  let selectedMovieId=0
-  let listOfIdes=[]
+  let selectedMovieId = 0;
+  let listOfIdes = [];
 
   $("#searchTerm").autocomplete({
     source: source,
     select: function (event, ui) {
-       selectedMovieId = ui.item.value;
-       listOfIdes.push(selectedMovieId)
+      selectedMovieId = ui.item.value;
+      listOfIdes.push(selectedMovieId);
       const apiKey = "10b0cac006c85b52e64463b5977f8b8c";
       const baseUrl = "https://api.themoviedb.org/3/movie/";
 
@@ -70,7 +71,7 @@ function onLoad() {
             document.getElementById("movieHolder").innerHTML =
               document.getElementById("movieHolder").innerHTML +
               `<div><img id=${selectedMovieId} src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}'></img><p id='movieId'></p></div>`;
-              movieIndex++
+            movieIndex++;
           }
         });
 
@@ -88,16 +89,13 @@ function onLoad() {
   function onVoteButtonCliked() {
     let user = prompt("please enter your name ? ");
     users.push(user);
-    console.log(user)
-    console.log(selectedMovieId)
     votes.push([]);
     state = "voting";
     let theDiv = '<div id="user-01"><h2>' + user + "</h2></div>";
     document.getElementById(
       "container-users"
-    ).innerHTML = document.getElementById("container-users").innerHTML
+    ).innerHTML = document.getElementById("container-users").innerHTML;
     for (let index = 0; index < listOfIdes.length; index++) {
-      console.log("event listener has added",index)
       document
         .getElementById(listOfIdes[index])
         .addEventListener("click", onClickedImage);
@@ -112,14 +110,12 @@ function onLoad() {
    */
   // lets chek that==if ()
   function onClickedImage(e) {
-    console.log("in onclicked image")
-    let clickedToVote = e.target.id
+    let clickedToVote = e.target.id;
     if (state === "voting" && counter_vote < 3) {
       if (votes[usersIndex].includes(clickedToVote)) {
         alert("same movie must not be voted more than once");
         return;
       } else {
-        console.log(clickedToVote)
         userName = users[usersIndex];
         votes[usersIndex].push(clickedToVote);
 
@@ -137,18 +133,6 @@ function onLoad() {
       document.getElementById("vote").disabled = true;
       alert("you have reached the limit");
     }
-  }
-
-  let movieIndex = 0;
-  function selectedSerchBox(movieId, TmdbResponseImagePath) {
-    // $(".container-movies").append(
-    //   "<div><img class='thumbnail-01' id='thumbnail" +
-    //     movieId +
-    //     " src='https://image.tmdb.org/t/p/original/k68nPLbIST6NP96JmTxmZijEvCA.jpg' ><p id='" +
-    //     movieIndex +
-    //     "'></p>"
-    // );
-    movieIndex++;
   }
 
   // next button:
@@ -192,8 +176,6 @@ function onLoad() {
     let flattenedVotes = votes.flat();
     let winner_movie = findTheMostaccuranced(flattenedVotes);
 
-
-
     const apiKey = "10b0cac006c85b52e64463b5977f8b8c";
     const baseUrl = "https://api.themoviedb.org/3/movie/";
 
@@ -201,38 +183,27 @@ function onLoad() {
       .get(baseUrl + winner_movie + "?api_key=" + apiKey)
       .then((response) => {
         let TmdbResponseImagePath = response.data.poster_path;
-        
-    $(".container-movies").append(
-      `<div><h2 id='theWinnerText'>the winner is: </h2><img id=${winner_movie} 
+
+        $(".container-movies").append(
+          `<div><h2 id='theWinnerText'>the winner is: </h2><img id=${winner_movie} 
       src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}'></img>
       <p style='font-size:30px'; id= 'winner_movie'
         ></p>"</div>`
-    );
-    let winner_user = [];
-    for (i = 0; i < votes.length; i++) {
-      if (votes[i].includes(winner_movie)) {
-        winner_user.push(users[i]);
-      }
-    }
+        );
+        let winner_user = [];
+        for (i = 0; i < votes.length; i++) {
+          if (votes[i].includes(winner_movie)) {
+            winner_user.push(users[i]);
+          }
+        }
 
-    for (i = 0; i < winner_user.length; i++) {
-      let currentName = document.getElementById("winner_movie").innerHTML;
-      let spacer = currentName.length > 0 ? ", " : "";
-      document.getElementById("winner_movie").innerHTML =
-        currentName + spacer + winner_user[i];
-    }
-
-   
-        
-
-
+        for (i = 0; i < winner_user.length; i++) {
+          let currentName = document.getElementById("winner_movie").innerHTML;
+          let spacer = currentName.length > 0 ? ", " : "";
+          document.getElementById("winner_movie").innerHTML =
+            currentName + spacer + winner_user[i];
+        }
       });
-
-
-
-
-    
-
   }
 
   finishButton.addEventListener("click", onFinishButtonClicked);
