@@ -14,14 +14,14 @@ function onLoad() {
     axios
       .get(
         baseUrl +
-        "?api_key=" +
-        apiKey +
-        "&language=en-US&page=1&query= " + req.term + "&include_adult=false"
+          "?api_key=" +
+          apiKey +
+          "&language=en-US&page=1&query= " +
+          req.term +
+          "&include_adult=false"
       )
       .then((response) => {
         TmdbResponse = response.data.results;
-        console.log(TmdbResponse);
-
         let result = TmdbResponse.map((item) => {
           const newobj = {
             label: item.original_title + " " + item.release_date,
@@ -29,40 +29,31 @@ function onLoad() {
           };
           return newobj;
         });
-        console.log("in result", result);
         callback(result);
       });
 
-    console.log(req.term);
+    // console.log(req.term);
     // make api call with req.term
     // put responses in an array of objects
     // each object should have a label (movie's name + year + director) and value (movie id)
-
   }
+
+  let selectedMovieList = [];
+  let selectedMovieId=0
+  let listOfIdes=[]
 
   $("#searchTerm").autocomplete({
     source: source,
-  });
-
-  let selectedMovieList = [];
-  let TmdbResponseImagePath = "";
-
-  $("#searchTerm").autocomplete({
     select: function (event, ui) {
-      let selectedMovieId = ui.item.value;
+       selectedMovieId = ui.item.value;
+       listOfIdes.push(selectedMovieId)
       const apiKey = "10b0cac006c85b52e64463b5977f8b8c";
       const baseUrl = "https://api.themoviedb.org/3/movie/";
 
       axios
-        .get(
-          baseUrl + selectedMovieId +
-          "?api_key=" +
-          apiKey
-        )
+        .get(baseUrl + selectedMovieId + "?api_key=" + apiKey)
         .then((response) => {
-          TmdbResponseImagePath=response.data.poster_path ;
-          console.log("this is the path",TmdbResponseImagePath)
-          console.log("in image response", response);
+          let TmdbResponseImagePath = response.data.poster_path;
           if (selectedMovieList.includes(selectedMovieId)) {
             alert(" The movie is already selected");
             return;
@@ -73,16 +64,17 @@ function onLoad() {
           }
           // selectedSerchBox(selectedMovieId,TmdbResponseImagePath);
           selectedMovieList.push(selectedMovieId);
-         
+
           $("#searchTerm").autocomplete("search", "");
           if (state == "selection") {
-            console.log("this is the poster pathhhhhhhhhhh: ", TmdbResponseImagePath)
-            document.getElementById("movieHolder").innerHTML = document.getElementById("movieHolder").innerHTML + "<div><img src='https://image.tmdb.org/t/p/original"
-            +TmdbResponseImagePath+"></img><p id='movieId'></p></div>"
+            document.getElementById("movieHolder").innerHTML =
+              document.getElementById("movieHolder").innerHTML +
+              `<div><img id=${selectedMovieId} src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}'></img><p id='movieId'></p></div>`;
+              movieIndex++
           }
         });
 
-      
+      return false;
     },
   });
 
@@ -96,15 +88,18 @@ function onLoad() {
   function onVoteButtonCliked() {
     let user = prompt("please enter your name ? ");
     users.push(user);
+    console.log(user)
+    console.log(selectedMovieId)
     votes.push([]);
     state = "voting";
     let theDiv = '<div id="user-01"><h2>' + user + "</h2></div>";
     document.getElementById(
       "container-users"
-    ).innerHTML = document.getElementById("container-users").innerHTML;
-    for (let index = 0; index < movieIndex; index++) {
+    ).innerHTML = document.getElementById("container-users").innerHTML
+    for (let index = 0; index < listOfIdes.length; index++) {
+      console.log("event listener has added",index)
       document
-        .getElementById("thumbnail" + index)
+        .getElementById(listOfIdes[index])
         .addEventListener("click", onClickedImage);
     }
   }
@@ -115,13 +110,16 @@ function onLoad() {
   /* 
   defining what happens when an imege been clicked
    */
+  // lets chek that==if ()
   function onClickedImage(e) {
-    let clickedToVote = e.target.getAttribute("--data-movieId");
+    console.log("in onclicked image")
+    let clickedToVote = e.target.id
     if (state === "voting" && counter_vote < 3) {
       if (votes[usersIndex].includes(clickedToVote)) {
         alert("same movie must not be voted more than once");
         return;
       } else {
+        console.log(clickedToVote)
         userName = users[usersIndex];
         votes[usersIndex].push(clickedToVote);
 
@@ -143,7 +141,6 @@ function onLoad() {
 
   let movieIndex = 0;
   function selectedSerchBox(movieId, TmdbResponseImagePath) {
-
     // $(".container-movies").append(
     //   "<div><img class='thumbnail-01' id='thumbnail" +
     //     movieId +
@@ -152,76 +149,93 @@ function onLoad() {
     //     "'></p>"
     // );
     movieIndex++;
-  
-}
+  }
 
-// next button:
-let nextButton = document.getElementById("next");
-function onNextButtonCliked() {
-  document.getElementById("vote").disabled = true;
-  counter_vote = 0;
-  let user = prompt("please enter your name ? ");
-  users.push(user);
-  votes.push([]);
-  state = "voting";
-  usersIndex++;
+  // next button:
+  let nextButton = document.getElementById("next");
+  function onNextButtonCliked() {
+    document.getElementById("vote").disabled = true;
+    counter_vote = 0;
+    let user = prompt("please enter your name ? ");
+    users.push(user);
+    votes.push([]);
+    state = "voting";
+    usersIndex++;
+  }
+  nextButton.addEventListener("click", onNextButtonCliked);
 
-}
-nextButton.addEventListener("click", onNextButtonCliked);
-
-// this is the function that recievs an array and returns the number of occurance of each element
-function findTheMostaccuranced(myList) {
-  let movieIds = [];
-  let numberOfClicked = [];
-  let inNumberOfClicked = 1;
-  myList.sort((a, b) => a - b);
-  for (i = 0; i < myList.length; i++) {
-    if (myList[i + 1] === myList[i]) {
-      inNumberOfClicked++;
-    } else {
-      movieIds.push(myList[i]);
-      numberOfClicked.push(inNumberOfClicked);
-      inNumberOfClicked = 1;
+  // this is the function that recievs an array and returns the number of occurance of each element
+  function findTheMostaccuranced(myList) {
+    let movieIds = [];
+    let numberOfClicked = [];
+    let inNumberOfClicked = 1;
+    myList.sort((a, b) => a - b);
+    for (i = 0; i < myList.length; i++) {
+      if (myList[i + 1] === myList[i]) {
+        inNumberOfClicked++;
+      } else {
+        movieIds.push(myList[i]);
+        numberOfClicked.push(inNumberOfClicked);
+        inNumberOfClicked = 1;
+      }
     }
+
+    let theMostAccured = Math.max.apply(null, numberOfClicked);
+    return movieIds[numberOfClicked.indexOf(theMostAccured)];
   }
 
-  let theMostAccured = Math.max.apply(null, numberOfClicked);
-  return movieIds[numberOfClicked.indexOf(theMostAccured)];
-}
+  let finishButton = document.getElementById("finish");
+  // this function will find the winner movie and print that movie on the screen
+  function onFinishButtonClicked() {
+    let myNode = document.getElementById("movieHolder");
+    myNode.innerHTML = " "; // to remove all the elements of the movie-container
+    let flattenedVotes = votes.flat();
+    let winner_movie = findTheMostaccuranced(flattenedVotes);
 
-let finishButton = document.getElementById("finish");
-// this function will find the winner movie and print that movie on the screen
-function onFinishButtonClicked() {
-  let myNode = document.getElementById("movieHolder");
-  myNode.innerHTML = " "; // to remove all the elements of the movie-container
-  let flattenedVotes = votes.flat();
-  let winner_movie = findTheMostaccuranced(flattenedVotes);
-  $(".container-movies").append(
-    "<div><h2 id='theWinnerText'>the winner is: </h2><img class='thumbnail-01' id='theWinner' src='Imges/" +
-    winner_movie +
-    ".jpg' --data-movieId='" +
-    winner_movie +
-    "' ><p style='font-size:30px'; id='" +
-    winner_movie +
-    "'></p>"
-  );
 
-  let winner_user = [];
-  for (i = 0; i < votes.length; i++) {
-    if (votes[i].includes(winner_movie)) {
-      winner_user.push(users[i]);
+
+    const apiKey = "10b0cac006c85b52e64463b5977f8b8c";
+    const baseUrl = "https://api.themoviedb.org/3/movie/";
+
+    axios
+      .get(baseUrl + winner_movie + "?api_key=" + apiKey)
+      .then((response) => {
+        let TmdbResponseImagePath = response.data.poster_path;
+        
+    $(".container-movies").append(
+      `<div><h2 id='theWinnerText'>the winner is: </h2><img id=${winner_movie} 
+      src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}'></img>
+      <p style='font-size:30px'; id= 'winner_movie'
+        ></p>"</div>`
+    );
+    let winner_user = [];
+    for (i = 0; i < votes.length; i++) {
+      if (votes[i].includes(winner_movie)) {
+        winner_user.push(users[i]);
+      }
     }
+
+    for (i = 0; i < winner_user.length; i++) {
+      let currentName = document.getElementById("winner_movie").innerHTML;
+      let spacer = currentName.length > 0 ? ", " : "";
+      document.getElementById("winner_movie").innerHTML =
+        currentName + spacer + winner_user[i];
+    }
+
+   
+        
+
+
+      });
+
+
+
+
+    
+
   }
 
-  for (i = 0; i < winner_user.length; i++) {
-    let currentName = document.getElementById(winner_movie).innerHTML;
-    let spacer = currentName.length > 0 ? ", " : "";
-    document.getElementById(winner_movie).innerHTML =
-      currentName + spacer + winner_user[i];
-  }
-}
-
-finishButton.addEventListener("click", onFinishButtonClicked);
+  finishButton.addEventListener("click", onFinishButtonClicked);
 }
 
 window.onload = onLoad;
