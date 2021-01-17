@@ -70,7 +70,7 @@ function onLoad() {
           if (state == "selection") {
             document.getElementById("movieHolder").innerHTML =
               document.getElementById("movieHolder").innerHTML +
-              `<div><img id=${selectedMovieId} src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}'></img><p id='movieId'></p></div>`;
+              `<div><img id=${selectedMovieId} src='https://image.tmdb.org/t/p/original${TmdbResponseImagePath}' onerror="this.src='/Imges/none.jpg'"></img><p id='movieId'></p></div>`;
             movieIndex++;
           }
         });
